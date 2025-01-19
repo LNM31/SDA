@@ -7,13 +7,13 @@ typedef struct {
 }echipa;
 echipa v[N]={
   {"N1",40,400000,"O1"},
-  {"N2",50,500   ,"O2"},
-  {"N3",20,500000,"O3"},
+  {"N2",50,500000,"O2"},
+  {"N3",19,500000,"O3"},
   {"N4",60,100   ,"O4"},
   {"N5",90,400   ,"O5"},
   {"N6",70,200000,"O6"},
-  {"N7",80,900   ,"O7"},
-  {"N8",10,300000,"O8"},
+  {"N7",10,300000,"O7"},
+  {"N8",80,900   ,"O8"},
 };
 echipa tmp[N];
 int l;
@@ -38,6 +38,19 @@ void f1(echipa *v,int size)
       st++;
       dr--;
     }
+  st=0,dr=size-1;
+  while(st<dr)
+    {
+      while(v[st].puncte>=20)
+	st++;
+      while(v[dr].puncte<20)
+	dr--;
+      if(st<dr)
+	swap(&v[st],&v[dr]);
+      st++;
+      dr--;
+    }
+  
 }
 void afisare(const echipa *v,int size)
 {
@@ -55,9 +68,9 @@ void quicksort(echipa a[], int prim, int ultim)
 	echipa pivot = a[prim];
 	while (stanga <= dreapta) 
 	{
-		while (stanga<=ultim && a[stanga].buget > pivot.buget)
+		while (stanga<=ultim && a[stanga].puncte > pivot.puncte)
 			stanga++;
-		while (dreapta>=prim && pivot.buget > a[dreapta].buget)
+		while (dreapta>=prim && pivot.puncte > a[dreapta].puncte)
 			dreapta--;
 		if (stanga < dreapta)
 			swap(&a[stanga++], &a[dreapta--]);
