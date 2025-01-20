@@ -159,6 +159,14 @@ void adauga_in_coada(even *e,coada *c)
       c->ultim=e;
     }
 }
+
+void afis_rec(even *lista)
+{
+  if(lista==NULL)
+    return;
+  printf("(e%d %ld) ",lista->id,lista->mom);
+  afis_rec(lista->next);
+}
 int main()
 {
   List lista;
@@ -170,6 +178,9 @@ int main()
   adaugare_even(11,7,20,&lista);
 
   afisare(&lista);
+  printf("Problema recursivitate:");
+  afis_rec(lista.v[0]);
+  printf("\n");
   coada c;
   initializare_coada(&c);
 
@@ -193,6 +204,7 @@ int main()
   adauga_in_coada(deservire_even(&lista),&c);
   afisare(&lista);
   display(c.prim);
+
 
   FREE(&lista);
   free_list(c.prim);
