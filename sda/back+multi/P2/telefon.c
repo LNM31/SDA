@@ -1,8 +1,9 @@
+
 #include<stdio.h>
 int sol;
 int valid(int k,int *v)
 {
-  if((v[k-1]==v[k] || v[k]==v[k+1])&& v[k]%2==0)
+  if(v[k-1]%2==0 && v[k]%2==0 && v[k+1]%2==0)
     return 0;
   return 1;
 }
