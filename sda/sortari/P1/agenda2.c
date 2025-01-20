@@ -80,14 +80,14 @@ void quicksort(agenda a[], int prim, int ultim)
 }
 void func(agenda a[],agenda temp[],int size)
 {
-  for(int i=0;i<size-2;i++)
+  for(int i=0;i<size;i++)
     {
       if(2025-a[i].an>=30 && 2025-a[i].an<=40)
 	temp[l++]=a[i];
     }
   quicksort(temp,0,l-1);
   l=0;
-  for(int i=0;i<size-2;i++)
+  for(int i=0;i<size;i++)
     {
       if(2025-a[i].an>=30 && 2025-a[i].an<=40)
 	a[i]=temp[l++];
@@ -105,12 +105,31 @@ void func(agenda a[],agenda temp[],int size)
   rezulta complexitatea algoritmului O(nlog n)
   
 */
+void selection_sort(agenda a[], int n)
+{
+	int i, j, min; // min retine INDEXUL elementului cu valoare minima
+	for (i = 0; i < n - 1; i++)
+	{
+	  if(2025-a[i].an>=30 && 2025-a[i].an<=40)
+	    {
+	        min = i;
+		//printf("a");
+		for (j = i + 1; j < n; j++)
+		{
+		  if (2025-a[j].an>=30 && 2025-a[j].an<=40 && strcmp(a[j].nume,a[min].nume)<0)
+				min = j;
+		}
+		swap(&a[min], &a[i]);
+	    }
+	}
+}
 int main()
 {
   afisare(v,N);
   f1(v,N);
   afisare(v,N);
-  func(v,temp,N);
+  //func(v,temp,N);
+  selection_sort(v,N);
   afisare(v,N);
   return 0;
 }
