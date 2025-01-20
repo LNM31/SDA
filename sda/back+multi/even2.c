@@ -14,6 +14,7 @@ typedef struct {
 
 typedef struct {
   even *prim;
+  even *ultim;
 }coada;
 
 
@@ -138,19 +139,25 @@ void FREE(List *lista)
 
 
 //coada
-even *add_back(even *e,even *lista)
+void initializare_coada(coada *c)
 {
-  if(lista==NULL)
-    return e;
-  even *p=lista;
-  for(;p->next!=NULL;p=p->next);
-  p->next=e;
-  e->next=NULL;
-  return lista;
+  c->prim=NULL;
+  c->ultim=NULL;
 }
 void adauga_in_coada(even *e,coada *c)
 {
-  c->prim=add_back(e,c->prim);
+  if(c->prim==NULL)
+    {
+      c->prim=e;
+      c->ultim=e;
+      e->next=NULL;
+    }
+  else
+    {
+      c->ultim->next=e;
+      e->next=NULL;
+      c->ultim=e;
+    }
 }
 int main()
 {
@@ -164,7 +171,21 @@ int main()
 
   afisare(&lista);
   coada c;
-  c.prim=NULL;
+  initializare_coada(&c);
+
+  
+  adauga_in_coada(deservire_even(&lista),&c);
+  afisare(&lista);
+  display(c.prim);
+
+  adauga_in_coada(deservire_even(&lista),&c);
+  afisare(&lista);
+  display(c.prim);
+
+  adauga_in_coada(deservire_even(&lista),&c);
+  afisare(&lista);
+  display(c.prim);
+
   adauga_in_coada(deservire_even(&lista),&c);
   afisare(&lista);
   display(c.prim);
@@ -176,6 +197,6 @@ int main()
   FREE(&lista);
   free_list(c.prim);
 
-  
+  //(e11 20) (e12 40) (e3 15) (e1 10) (e2 20) 
   return 0;
 }
