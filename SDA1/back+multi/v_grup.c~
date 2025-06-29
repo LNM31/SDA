@@ -1,0 +1,82 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+
+typedef struct gg{  //lista secundara
+  int id,prio;
+  long moment;
+  struct gg *next;
+}even;
+typedef struct {
+  even *v[8];
+  int size;
+}List;
+
+void intializare(List *lista)
+{
+  for(int i=0;i<8;i++)
+    v[i]=NULL;
+  size=0;
+}
+
+even *make(int id,int prio,long moment,even *elem)
+{
+  even *nou=(even *)malloc(sizeof(even));
+  if(nou==NULL)
+    {
+      perror(NULL);
+      exit(-1);
+    }
+  nou->id=id;
+  nou->prio=prio;
+  nou->moment=moment;
+  nou->next=elem;
+}
+even *adauga(int id,int prio,long moment,even *lista)
+{
+  if(lista==NULL)
+    return make(id,prio,moment);
+  even *p=NULL,*st=NULL,*nou=make(id,prio,moment,NULL);
+  if(moment<lista->moment)
+    {
+      nou->next=lista;
+      return nou;
+    }
+  for(p=lista;p!=NULL;p=p->next)
+    {
+      if(moment<p->moment)
+	{
+	  st->next=nou;
+	  nou->next=p;
+	  return lista;
+	}
+      if(p->next==NULL)
+	{
+	  p->next=nou;
+	  return lista;
+	}
+      st=p;
+    }
+}
+void display(even *lista)
+{
+  even *p=lista;
+  while(p!=NULL)
+    {
+      printf("ID:%d PRIO:%d MOM:%ld\n",p->id,p->prio,p->moment);
+      p=p->next;
+    }
+  printf("\n");
+}
+int main()
+{
+  List lista;
+  initializare(&lista);
+  even *l1=NULL;
+  l1=adauga(1,3,20,l1);
+  l1=adauga(2,3,10,l1);
+  l1=adauga(3,3,15,l1);
+  l1=adauga(4,3,40,l1);
+  display(l1);
+  return 0;
+}

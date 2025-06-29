@@ -1,0 +1,47 @@
+#include<stdio.h>
+#define N 4
+typedef struct{
+  char id;
+  int durata,termen;
+}cerere;
+cerere v[N]={
+  {'A',4,2},
+  {'B',3,10},
+  {'C',2,8},
+  {'D',4,15},
+};
+void deplasare(tip_element a[], int stanga, int dreapta)
+{
+	int fiu = 2 * stanga + 1;
+	while (fiu <= dreapta)
+	{
+		if (fiu < dreapta && a[fiu].cheie < a[fiu + 1].cheie)
+			//daca al doilea fiu are cheia cea mai mare
+			fiu++;								//retinem al doilea fiu
+		if (a[stanga].cheie < a[fiu].cheie)  //daca este necesar 
+		{										 //schimba parinte cu fiu
+			swap(&a[stanga], &a[fiu]);			 //si deplaseaza in jos
+			stanga = fiu;
+			fiu = 2 * stanga + 1;
+		}
+		else
+			fiu = dreapta + 1;
+	}
+}
+void heapsort(tip_element a[], int n)
+{
+	int i;
+	//algoritmul lui Floyd 
+	for (i = n / 2 - 1; i >= 0; i--) //se creaza ansamblul
+		deplasare(a, i, n - 1);
+	//extragerea maximului si refacerea ansamblului
+	for (i = n - 1; i >= 1; i--)
+	{
+		swap(&a[0], &a[i]);			//mutare element maxim pe pozitia a[i]
+		deplasare(a, 0, i - 1);		//se reface proprietatea de ansamblu
+	}
+}
+int main()
+{
+  return 0;
+}

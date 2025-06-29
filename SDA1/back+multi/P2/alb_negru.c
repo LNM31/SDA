@@ -1,0 +1,56 @@
+#include<stdio.h>
+#define N 8
+int dx[]={1,-1,0,0};//dreapta stanga sus jos
+int dy[]={0,0,-1,1};
+int matrice[N][N]={
+  {0,0,0,0,0,0,0,0},
+  {0,1,1,0,0,1,1,0},
+  {1,1,1,0,0,0,1,0},
+  {0,1,0,0,0,0,1,0},
+  {0,0,0,0,0,0,0,0},
+  {0,1,1,0,0,1,1,0},
+  {0,1,1,0,0,0,1,0},
+  {0,0,1,0,0,0,0,0},
+};
+int vizitat[N][N];
+int zone[N*N],lungime;
+int size,xnew,ynew;
+int ok(int x,int y)
+{
+  return x>=0 && y>=0 && x<=N-1 && y<=N-1 && matrice[x][y]==1 && vizitat[x][y]==0;
+}
+void back(int x,int y)
+{
+  for(int i=0;i<4;i++)
+    {
+      xnew=x+dx[i];
+      ynew=y+dy[i];
+      if(ok(xnew,ynew))
+	{
+	  vizitat[xnew][ynew]=1;
+	  size++;
+	  back(xnew,ynew);
+	}
+    }
+}
+int main()
+{
+  for(int i=0;i<N;i++)
+    {
+      for(int j=0;j<N;j++)
+	{
+	  if(matrice[i][j]==1 && vizitat[i][j]==0)
+	    {
+	      vizitat[i][j]=1;
+	      size=1;
+	      back(i,j);
+	      zone[lungime++]=size;
+	    }
+	}
+    }
+  for(int i=0;i<lungime;i++)
+    {
+      printf("Obiectul %d are %d pixeli\n",i+1,zone[i]);
+    }
+  return 0;
+}
